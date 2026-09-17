@@ -1,4 +1,4 @@
-# Media Downloader Automation (`yt-dlp`)
+# Descargador multimedia automatizado 
 
 Script interactivo por lotes en Batch para Windows diseñado para gestionar descargas multimedia mediante `yt-dlp` y `ffmpeg` con aprovisionamiento automático de binarios.
 
@@ -35,11 +35,12 @@ Script interactivo por lotes en Batch para Windows diseñado para gestionar desc
 #### 2. Carga de URLs
 Abre el archivo `enlaces.txt` generado y pega los enlaces especificando la opción deseada separada por un espacio:
 
-```text```
+```text
 # Enlace                                      Opción (opcional)
     https://www.youtube.com/watch?v=XXXXXXXXXXX   mp3
     https://www.youtube.com/watch?v=YYYYYYYYYYY   1080p
     https://www.youtube.com/watch?v=ZZZZZZZZZZZ   calidad
+```
 
 > **Nota:** Las líneas que comienzan por `#` se omiten automáticamente. Si no se especifica ninguna opción tras la URL, se aplica `calidad` por defecto.
 
