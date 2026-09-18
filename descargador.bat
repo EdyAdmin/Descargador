@@ -40,9 +40,13 @@ if not exist "%DIR_REQ%\yt-dlp.exe" (
     echo [*] Descarga completada.
     echo.
 ) else (
-    echo [*] Comprobando actualizaciones de yt-dlp...
-    "%DIR_REQ%\yt-dlp.exe" -U
-    echo.
+    for /f "delims=" %%V in ('"%DIR_REQ%\yt-dlp.exe" -U 2^>^&1') do (
+        echo %%V | findstr /i "Updating" >nul
+        if not errorlevel 1 (
+            echo !Amarillo![*] Se ha actualizado yt-dlp.!Reset!!Cian!
+            echo.
+        )
+    )
 )
 
 :: Se comprueba si node está descargado.
@@ -76,13 +80,16 @@ if not exist "enlaces.txt" (
     echo.
 )
 
+set "actualizacion=0"
+
+:MenuCarpetas
 echo [*] Las carpetas disponibles son las siguientes:
 echo.
 set "contador=0"
 
 :: Se buscan todas las carpetas creadas en el directorio actual ignorando 'Herramientas'.
 for /d %%D in (*) do (
-    if /I not "%%D"=="%DIR_REQ%" (
+    if /I not "%%D"=="%DIR_REQ%" if not "%%D"=="U" if not "%%D"=="E" (
         set /a contador+=1
         set "carpeta_!contador!=%%D"
         echo   !Magenta![!contador!] %%D!Reset!!Cian!
@@ -95,11 +102,51 @@ if "!contador!"=="0" (
 
 echo.
 echo !Cian![*] Escribe el NÚMERO asociado a la carpeta.
-echo [*] O escribe un NUEVO NOMBRE para crearla ^(Ej: Memes^).
+echo [*] Escribe un NUEVO NOMBRE para crearla.
 echo [*] Pulsa ENTER sin escribir nada para usar la carpeta predeterminada ^('Vídeos'^).
 echo.
+if "!actualizacion!"=="0" (
+echo [*] Escribe una u mayúscula ^('U'^) para actualizar FFmpeg y Node.
+echo [*] Si deseas cancelar la descarga, escribe una e mayúscula ^('E'^).
+echo.
+)
 set /p "seleccion=!Amarillo![*] La carpeta a abrir es: "
 echo.!Reset!!Cian!
+
+:: Si el usuario escribe 'E', se cancela el proceso.
+if "!seleccion!"=="E" (
+    echo !Magenta!==================================
+    echo     Cerrando el descargador...
+    echo ==================================!Reset!
+    echo.
+    timeout /t 3 /nobreak >nul
+    exit
+)
+
+:: Si el usuario escribe 'U', entra al proceso de actualización.
+if "!seleccion!"=="U" (
+    echo [*] Iniciando actualización de herramientas...
+    echo.
+    echo [*] Actualizando yt-dlp...
+    echo.
+    "%DIR_REQ%\yt-dlp.exe" -U >nul 2>&1
+    echo !Amarillo![*] Yt-dlp actualizado.!Reset!!Cian!
+    echo.
+    echo [*] Actualizando node...
+    echo.
+    powershell -Command "$ProgressPreference = 'SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri 'https://nodejs.org/dist/latest-v20.x/win-x64/node.exe' -OutFile '%DIR_REQ%\node.exe'"
+    echo !Amarillo![*] Node actualizado.!Reset!!Cian!
+    echo.
+    echo [*] Actualizando ffmpeg...
+    echo.
+    powershell -Command "$ProgressPreference = 'SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri 'https://github.com/yt-dlp/FFmpeg-Builds/releases/latest/download/ffmpeg-master-latest-win64-gpl.zip' -OutFile '%DIR_REQ%\ffmpeg.zip'; Expand-Archive -Path '%DIR_REQ%\ffmpeg.zip' -DestinationPath '%DIR_REQ%\ffmpeg_temp' -Force; Move-Item -Path '%DIR_REQ%\ffmpeg_temp\*\bin\ffmpeg.exe' -Destination '%DIR_REQ%\ffmpeg.exe' -Force; Move-Item -Path '%DIR_REQ%\ffmpeg_temp\*\bin\ffprobe.exe' -Destination '%DIR_REQ%\ffprobe.exe' -Force; Remove-Item '%DIR_REQ%\ffmpeg.zip' -Force; Remove-Item '%DIR_REQ%\ffmpeg_temp' -Recurse -Force"
+    echo !Amarillo![*] Ffmpeg actualizado.!Reset!!Cian!
+    echo.
+    echo !Amarillo![*] Herramientas actualizadas correctamente.!Reset!!Cian!
+    set "actualizacion=1"
+    echo.
+    goto :MenuCarpetas
+)
 
 set "nombreCarpeta="
 
@@ -194,11 +241,11 @@ if "!esVacio!"=="1" (
         echo !Rojo![AVISO] Para comenzar a usar el programa, sigue las instrucciones:!Reset!!Cian!
         echo.
     )
-    echo !Cian![1] Pega la URL del vídeo.
+    echo [1] Pega la URL del vídeo.
     echo [2] Deja un espacio en blanco.
     echo [3] Escribe la opción que quieras: mp3, 1080p o calidad.
     echo.
-    echo [*] Ejemplo: https://www.youtube.com/watch?v=... mp3!Reset!
+    echo [*] Ejemplo: https://www.youtube.com/watch?v=... mp3
     echo.
     pause
     exit
