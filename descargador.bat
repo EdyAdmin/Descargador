@@ -119,7 +119,7 @@ if "!seleccion!"=="E" (
     echo     Cerrando el descargador...
     echo ==================================!Reset!
     echo.
-    timeout /t 3 /nobreak >nul
+    timeout /t 2 /nobreak >nul
     exit
 )
 

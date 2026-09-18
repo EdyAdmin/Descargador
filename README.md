@@ -6,7 +6,7 @@ Script interactivo por lotes en Batch para Windows diseñado para gestionar desc
 
 ### Características principales ⚡
 
-* **Auto-bootstrap de dependencias:** Descarga y configura automáticamente en local (`Herramientas/`) las versiones portables de `yt-dlp`, `FFmpeg/FFprobe` y el runtime de `Node.js` vía PowerShell sin alterar variables de entorno globales. También las actualiza en caso de que sea necesario.
+* **Auto-bootstrap de dependencias:** Descarga y configura automáticamente en local (`Herramientas/`) las versiones portables de `yt-dlp`, `FFmpeg/FFprobe` y el runtime de `Node.js` vía PowerShell sin alterar variables de entorno globales. También actualiza yt-dlp automáticamente, aunque se pueden actualizar todas las herramientas de forma manual.
 * **Bypass y optimización:** Configurado con `--js-runtimes node` y extractores móviles/web (`android,web`) para mitigar bloqueos o limitaciones de velocidad de YouTube.
 * **Procesamiento de formatos y códecs:**
   * **Audio (`mp3`):** Extracción y remuestreo directo a MP3.
@@ -34,4 +34,4 @@ En el archivo `enlaces.txt` deberán estar los enlaces de los vídeos con la pos
 > **Nota:** Las líneas que comienzan por `#` se omiten automáticamente. Si no se especifica ninguna opción tras la URL, se aplica `calidad` por defecto.
 
 #### 3. Ejecución y procesado
-Una vez cargados los links vuelve a ejecutar el descargador y selecciona una carpeta existente mediante su índice numérico, escribe un nuevo nombre para crearla o presiona `Enter` para usar la carpeta predeterminada (`Vídeos`). El script procesará la cola de descargas y mostrará una ventana emergente nativa al concluir.
+Una vez cargados los links vuelve a ejecutar el descargador y selecciona una carpeta existente mediante su índice numérico, escribe un nuevo nombre para crearla o presiona `Enter` para usar la carpeta predeterminada (`Vídeos`). En esta pantalla puedes actualizar las herramientas si lo deseas, o cancelar la descarga. Si prosigues con la misma, el script procesará la cola de descargas y mostrará una ventana emergente nativa al concluir.
