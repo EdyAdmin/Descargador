@@ -16,7 +16,7 @@ Script interactivo por lotes en Batch para Windows diseñado para gestionar desc
 
 ---
 
-### Modo de uso 🖥️
+### Modo de empleo 🖥️
 
 #### 1. Configuración inicial
 En la primera ejecución se generará la carpeta `Herramientas/` con los binarios necesarios y la plantilla `enlaces.txt`. Tras crearse el archivo base, si todo se ha instalado correctamente, el script se cerrará de forma automática para poder editar `enlaces.txt`.
