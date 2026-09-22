@@ -4,7 +4,7 @@ Script interactivo por lotes en Batch para Windows diseñado para gestionar desc
 
 ---
 
-### Características principales ⚡
+### ⚡ Características principales 
 
 * **Auto-bootstrap de dependencias:** Descarga y configura automáticamente en local (`Herramientas/`) las versiones portables de `yt-dlp`, `FFmpeg/FFprobe` y el runtime de `Node.js` vía PowerShell sin alterar variables de entorno globales. También actualiza yt-dlp automáticamente, aunque se pueden actualizar todas las herramientas de forma manual.
 * **Bypass y optimización:** Configurado con `--js-runtimes node` y extractores móviles/web (`android,web`) para mitigar bloqueos o limitaciones de velocidad de YouTube.
@@ -16,7 +16,7 @@ Script interactivo por lotes en Batch para Windows diseñado para gestionar desc
 
 ---
 
-### Modo de empleo 🖥️
+### 🖥️ Modo de empleo 
 
 #### 1. Configuración inicial
 En la primera ejecución se generará la carpeta `Herramientas/` con los binarios necesarios y la plantilla `enlaces.txt`. Tras crearse el archivo base, si todo se ha instalado correctamente, el script se cerrará de forma automática para poder editar `enlaces.txt`.
